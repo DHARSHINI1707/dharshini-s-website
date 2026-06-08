@@ -29,6 +29,7 @@ export const Route = createFileRoute("/")({
 const GITHUB = "https://github.com/DHARSHINI1707";
 const EMAIL = "dharshinibb90@gmail.com";
 const RESUME_URL = "/resume.pdf"; // user will upload to public/resume.pdf
+const INTRO_VIDEO = "/intro.mp4";
 
 const ROLES = ["Data Analyst", "GenAI Enthusiast", "Python Developer", "AI Explorer", "Computer Science Engineering Student"];
 
@@ -163,58 +164,172 @@ function SectionTitle({ kicker, title }: { kicker: string; title: string }) {
 
 /* ============ HERO ============ */
 function Hero() {
-  return (
-    <section id="home" className="relative min-h-screen flex items-center pt-24 pb-12 max-w-7xl mx-auto px-6">
-      <div className="grid lg:grid-cols-5 gap-10 items-center w-full">
-        <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="lg:col-span-3 order-2 lg:order-1">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs tracking-widest text-accent mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" /> AVAILABLE FOR INTERNSHIPS
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-4">
-            Hi, I'm <span className="text-gradient">Dharshini S</span>
-          </h1>
-          <div className="text-2xl md:text-3xl font-semibold mb-6 h-10">
-            <TypeWriter />
-          </div>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-8 leading-relaxed">
-            Passionate Computer Science Engineering student with hands-on experience in Data Analytics, Python, SQL, and Generative AI. Dedicated to transforming data into meaningful insights and building innovative technology solutions.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 hover:opacity-90 glow-purple">
-              <a href={RESUME_URL} download><Download className="w-4 h-4 mr-2" />Download Resume</a>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="glass border-accent/40 hover:border-accent hover:bg-accent/10">
-              <a href="#projects"><Sparkles className="w-4 h-4 mr-2" />View Projects</a>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="glass border-primary/40 hover:border-primary hover:bg-primary/10">
-              <a href={GITHUB} target="_blank" rel="noreferrer"><Github className="w-4 h-4 mr-2" />GitHub</a>
-            </Button>
-            <Button asChild size="lg" variant="ghost" className="hover:bg-accent/10">
-              <a href="#contact"><Mail className="w-4 h-4 mr-2" />Contact Me</a>
-            </Button>
-          </div>
-        </motion.div>
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
 
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2 }} className="lg:col-span-2 order-1 lg:order-2 flex justify-center">
-          <div className="relative animate-float">
-            <div className="absolute -inset-6 bg-gradient-to-br from-primary via-accent to-primary rounded-full opacity-50 blur-2xl animate-pulse-glow" />
-            <div className="absolute -inset-1 bg-gradient-to-br from-accent to-primary rounded-full" />
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background">
-              <img src={PROFILE_IMG} alt="Dharshini S" className="w-full h-full object-cover" />
+  const toggleAudio = () => {
+    if (!videoRef.current) return;
+
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+
+    videoRef.current.play();
+  };
+  return (
+    <section
+      id="home"
+      className="relative min-h-screen overflow-hidden flex items-center"
+    >
+      {/* RIGHT SIDE VIDEO BACKGROUND */}
+      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full">
+        <video
+             ref={videoRef}
+             autoPlay
+             muted
+             playsInline
+             loop
+             className="w-full h-full object-cover"
+        >
+          <source src="/intro.mp4" type="video/mp4" />
+        </video>
+
+        {/* Overlay for smooth blending */}
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/30 to-background" />
+      </div>
+
+      {/* CONTENT */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-6">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+          {/* LEFT SIDE CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs tracking-widest text-accent mb-6">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              AVAILABLE FOR INTERNSHIPS
             </div>
-            {/* Floating tech icons */}
-            {[
-              { Icon: Cpu, pos: "top-0 -right-4", color: "text-accent", delay: 0 },
-              { Icon: Database, pos: "bottom-8 -left-6", color: "text-primary", delay: 1 },
-              { Icon: Brain, pos: "-top-4 left-8", color: "text-accent", delay: 2 },
-              { Icon: LineChart, pos: "-bottom-2 right-4", color: "text-primary", delay: 1.5 },
-            ].map(({ Icon, pos, color, delay }, i) => (
-              <div key={i} className={`absolute ${pos} glass-strong rounded-2xl p-3 animate-float`} style={{ animationDelay: `${delay}s` }}>
-                <Icon className={`w-6 h-6 ${color}`} />
-              </div>
-            ))}
+
+<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl font-bold leading-tight mb-4">              
+  Hi, I'm <span className="text-gradient">Dharshini S</span>
+            </h1>
+
+            <div className="text-2xl md:text-3xl font-semibold mb-6 h-10">
+              <TypeWriter />
+            </div>
+
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-8 leading-relaxed">
+              Passionate Computer Science Engineering student with hands-on
+              experience in Data Analytics, Python, SQL, and Generative AI.
+              Dedicated to transforming data into meaningful insights and
+              building innovative technology solutions.
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 hover:opacity-90 glow-purple"
+              >
+                <a href={RESUME_URL} download>
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Resume
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="glass border-accent/40 hover:border-accent hover:bg-accent/10"
+              >
+                <a href="#projects">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  View Projects
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="glass border-primary/40 hover:border-primary hover:bg-primary/10"
+              >
+                <a href={GITHUB} target="_blank" rel="noreferrer">
+                  <Github className="w-4 h-4 mr-2" />
+                  GitHub
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="hover:bg-accent/10"
+              >
+                <a href="#contact">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact Me
+                </a>
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* EMPTY RIGHT SIDE FOR SPACING */}
+          <div className="hidden lg:block" />
+
+        </div>
+        <div className="mt-6">
+  <Button
+    size="lg"
+    onClick={toggleAudio}
+    className="bg-gradient-to-r from-purple-500 to-cyan-500 text-white"
+  >
+    {isMuted
+      ? "🎤 Hear My AI Introduction"
+      : "🔇 Mute AI Introduction"}
+  </Button>
+</div>
+      </div>
+
+      {/* FLOATING AI ICONS */}
+      <div className="hidden lg:block">
+        {[
+          {
+            Icon: Cpu,
+            pos: "top-24 right-20",
+            color: "text-accent",
+            delay: 0,
+          },
+          {
+            Icon: Database,
+            pos: "bottom-32 right-[45%]",
+            color: "text-primary",
+            delay: 1,
+          },
+          {
+            Icon: Brain,
+            pos: "top-20 right-[35%]",
+            color: "text-accent",
+            delay: 2,
+          },
+          {
+            Icon: LineChart,
+            pos: "bottom-20 right-20",
+            color: "text-primary",
+            delay: 1.5,
+          },
+        ].map(({ Icon, pos, color, delay }, i) => (
+          <div
+            key={i}
+            className={`absolute ${pos} glass-strong rounded-2xl p-3 animate-float z-20`}
+            style={{ animationDelay: `${delay}s` }}
+          >
+            <Icon className={`w-6 h-6 ${color}`} />
           </div>
-        </motion.div>
+        ))}
       </div>
     </section>
   );
@@ -511,7 +626,7 @@ function GitHubSection() {
             <h3 className="text-2xl font-bold">DHARSHINI1707</h3>
             <p className="text-muted-foreground mb-4">Building data-driven & AI-powered solutions</p>
             <div className="grid grid-cols-3 gap-3 mb-5">
-              {[["Repos", "10+"], ["Projects", "5+"], ["Active", "2026"]].map(([k, v]) => (
+              {[["Repos", "3"], ["Projects", "2"], ["Active", "2026"]].map(([k, v]) => (
                 <div key={k} className="glass rounded-xl p-3">
                   <div className="text-xl font-bold text-gradient">{v}</div>
                   <div className="text-xs text-muted-foreground">{k}</div>
@@ -713,7 +828,9 @@ function BackToTop() {
 
 /* ============ MAIN ============ */
 function Portfolio() {
-  const [loading, setLoading] = useState(true);
+ const [loading, setLoading] = useState(true);
+
+  const [activeSection, setActiveSection] = useState("about");
   return (
     <>
       <AnimatePresence>{loading && <Loader onDone={() => setLoading(false)} />}</AnimatePresence>
@@ -721,17 +838,115 @@ function Portfolio() {
       <ScrollProgress />
       <Nav />
       <main className="relative">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Achievements />
-        <GitHubSection />
-        <Resume />
-        <WhyHire />
-        <Contact />
-      </main>
+  <Hero />
+
+  {/* Navigation Cards */}
+  <section className="max-w-7xl mx-auto px-6 py-12">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+      <button
+        onClick={() => setActiveSection("about")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        About
+      </button>
+
+      <button
+        onClick={() => setActiveSection("skills")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Skills
+      </button>
+
+      <button
+        onClick={() => setActiveSection("experience")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Experience
+      </button>
+
+      <button
+        onClick={() => setActiveSection("projects")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Projects
+      </button>
+
+      <button
+        onClick={() => setActiveSection("achievements")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Achievements
+      </button>
+
+      <button
+        onClick={() => setActiveSection("github")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        GitHub
+      </button>
+
+      <button
+        onClick={() => setActiveSection("resume")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Resume
+      </button>
+
+      <button
+        onClick={() => setActiveSection("hire")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Why Hire Me
+      </button>
+
+      <button
+        onClick={() => setActiveSection("contact")}
+        className="glass-strong rounded-2xl p-6 hover:scale-105 transition-all"
+      >
+        Contact
+      </button>
+
+    </div>
+  </section>
+
+  {/* Content Display Area */}
+  <section className="max-w-7xl mx-auto px-6 pb-20">
+    <motion.div
+      key={activeSection}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="
+        glass-strong
+        rounded-[40px]
+        p-8 md:p-12
+        border border-white/10
+        shadow-[0_20px_80px_rgba(0,0,0,0.4)]
+      "
+    >
+
+      {activeSection === "about" && <About />}
+
+      {activeSection === "skills" && <Skills />}
+
+      {activeSection === "experience" && <Experience />}
+
+      {activeSection === "projects" && <Projects />}
+
+      {activeSection === "achievements" && <Achievements />}
+
+      {activeSection === "github" && <GitHubSection />}
+
+      {activeSection === "resume" && <Resume />}
+
+      {activeSection === "hire" && <WhyHire />}
+
+      {activeSection === "contact" && <Contact />}
+
+    </motion.div>
+  </section>
+</main>
       <Footer />
       <BackToTop />
     </>
