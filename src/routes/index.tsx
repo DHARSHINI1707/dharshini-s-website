@@ -27,8 +27,8 @@ export const Route = createFileRoute("/")({
 });
 
 const GITHUB = "https://github.com/DHARSHINI1707";
-const EMAIL = "dharshinibb90@gmail.com";
-const RESUME_URL = "/resume.pdf"; // user will upload to public/resume.pdf
+const EMAIL = "dharshusuresh170506@gmail.com";
+const RESUME_URL = "/resume.pdf";
 const INTRO_VIDEO = "/intro.mp4";
 
 const ROLES = ["Data Analyst", "GenAI Enthusiast", "Python Developer", "AI Explorer", "Computer Science Engineering Student"];
@@ -339,7 +339,7 @@ function Hero() {
 function About() {
   return (
     <Section id="about">
-      <SectionTitle kicker="WHO I AM" title="About Me" />
+      <SectionTitle kicker="WHO I AM" title="Who I Am" />
       <div className="grid lg:grid-cols-3 gap-8">
         <motion.div whileHover={{ y: -6 }} className="lg:col-span-1 glass rounded-3xl p-6 flex flex-col items-center text-center">
           <div className="relative mb-4">
@@ -662,11 +662,12 @@ function Resume() {
         </div>
         <h3 className="text-2xl font-bold mb-2">Dharshini S — Resume</h3>
         <p className="text-muted-foreground mb-6">Complete overview of my experience, projects, and skills in Data Analytics & GenAI.</p>
-        <div className="aspect-[8.5/4] rounded-2xl border-2 border-dashed border-accent/30 mb-6 flex items-center justify-center text-muted-foreground text-sm glass">
-          <div>
-            <FileText className="w-10 h-10 mx-auto mb-2 text-accent/50" />
-            Resume preview — upload <code className="text-accent">public/resume.pdf</code> to enable
-          </div>
+        <div className="aspect-[8.5/4] rounded-2xl overflow-hidden border border-accent/30 mb-6 glass">
+          <iframe
+            src={`${RESUME_URL}#view=FitH`}
+            title="Dharshini S resume"
+            className="h-full w-full"
+          />
         </div>
         <div className="flex flex-wrap justify-center gap-3">
           <Button asChild className="bg-gradient-to-r from-primary to-accent text-primary-foreground border-0">
