@@ -276,12 +276,20 @@ function AchievementsContent() {
 }
 
 function ResumeContent() {
+  const [viewerUrl, setViewerUrl] = useState(RESUME_URL);
+
+  useEffect(() => {
+    setViewerUrl(`${window.location.origin}${RESUME_URL}`);
+  }, []);
+
+  const embeddedViewer = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(viewerUrl)}`;
+
   return (
     <motion.div variants={stagger} initial="hidden" animate="show">
       <DetailHeader kicker="DOCUMENT" title="Resume" />
       <motion.div variants={item} className="glass-strong rounded-3xl p-6">
         <div className="rounded-2xl overflow-hidden border border-accent/20 mb-5 bg-white">
-          <iframe src={`${RESUME_URL}#view=FitH`} title="Resume preview" className="w-full h-[60vh]" />
+          <iframe src={embeddedViewer} title="Resume preview" className="w-full h-[60vh]" />
         </div>
         <div className="flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 hover:opacity-90 glow-purple">
