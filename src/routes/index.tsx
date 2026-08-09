@@ -74,7 +74,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 /* ============================================================ CARD DATA */
 const CARDS = [
-  { id: "who", num: "01", cat: "Profile", title: "WHO I AM", preview: "Computer Science Engineering student passionate about turning data into insight.", Icon: User },
+  { id: "who", num: "01", cat: "Profile", title: "WHO AM I", preview: "Computer Science Engineering student passionate about turning data into insight.", Icon: User },
   { id: "skills", num: "02", cat: "Toolkit", title: "SKILLS", preview: "Python, SQL, Data Analytics, EDA & Generative AI.", Icon: Code2 },
   { id: "experience", num: "03", cat: "Journey", title: "EXPERIENCE", preview: "GenAI & Data Science internships building real products.", Icon: Briefcase },
   { id: "projects", num: "04", cat: "Work", title: "PROJECTS", preview: "ShellCycle — an eco-friendly pothole management system.", Icon: Folder },
@@ -112,7 +112,7 @@ function DetailHeader({ kicker, title }: { kicker: string; title: string }) {
 function WhoContent() {
   return (
     <motion.div variants={stagger} initial="hidden" animate="show">
-      <DetailHeader kicker="PROFILE" title="Who I Am" />
+      <DetailHeader kicker="PROFILE" title="Who Am I" />
       <div className="grid lg:grid-cols-3 gap-6">
         <motion.div variants={item} className="glass-strong rounded-3xl p-6 flex flex-col items-center text-center">
           <div className="relative mb-4">
