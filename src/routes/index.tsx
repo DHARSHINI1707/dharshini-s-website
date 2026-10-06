@@ -27,12 +27,12 @@ export const Route = createFileRoute("/")({
 });
 
 const GITHUB = "https://github.com/DHARSHINI1707";
-const EMAIL = "dharshinibb90@gmail.com";
+const EMAIL = "dharshusuresh170506@gmail.com";
 const PHONE = "9894485175";
 const RESUME_URL = "/resume.pdf";
 const INTRO_VIDEO = "/intro.mp4";
 
-const ROLES = ["Data Analyst", "GenAI Enthusiast", "Python Developer", "AI Explorer"];
+const ROLES = ["AI/ML Engineer", "Data Analyst", "GenAI Enthusiast", "Python Developer"];
 
 /* ============================================================ TYPEWRITER */
 function TypeWriter() {
@@ -77,7 +77,7 @@ const CARDS = [
   { id: "who", num: "01", cat: "Profile", title: "WHO AM I", preview: "Computer Science Engineering student passionate about turning data into insight.", Icon: User },
   { id: "skills", num: "02", cat: "Toolkit", title: "SKILLS", preview: "Python, SQL, Data Analytics, EDA & Generative AI.", Icon: Code2 },
   { id: "experience", num: "03", cat: "Journey", title: "EXPERIENCE", preview: "GenAI & Data Science internships building real products.", Icon: Briefcase },
-  { id: "projects", num: "04", cat: "Work", title: "PROJECTS", preview: "ShellCycle — an eco-friendly pothole management system.", Icon: Folder },
+  { id: "projects", num: "04", cat: "Work", title: "PROJECTS", preview: "ShellCycle, Sales Performance Dashboard & SMS Intent Classifier.", Icon: Folder },
   { id: "achievements", num: "05", cat: "Impact", title: "ACHIEVEMENTS", preview: "Internships, projects & technologies mastered so far.", Icon: Award },
   { id: "resume", num: "06", cat: "Document", title: "RESUME", preview: "Preview, open & download my full resume.", Icon: FileText },
   { id: "github", num: "07", cat: "Code", title: "GITHUB", preview: "Explore my repositories and contributions.", Icon: Github },
@@ -125,7 +125,7 @@ function WhoContent() {
         </motion.div>
         <div className="lg:col-span-2 space-y-5">
           <motion.p variants={item} className="text-muted-foreground leading-relaxed text-lg">
-            Computer Science Engineering student with hands-on experience in Data Analytics, Python, SQL, Machine Learning fundamentals, and Generative AI through internships and academic projects.
+            Final-year Computer Science Engineering student with strong analytical and problem-solving skills and hands-on experience in Python, SQL, Data Analytics, Machine Learning, and Generative AI. Passionate about developing intelligent solutions, analyzing data, and applying AI/ML techniques to real-world problems through internships, hackathons, and technical activities.
           </motion.p>
           <motion.div variants={item} className="glass rounded-2xl p-5">
             <div className="flex items-start gap-3 mb-3">
@@ -145,6 +145,15 @@ function WhoContent() {
             </div>
             <div className="flex gap-3"><Pill>English</Pill><Pill>Tamil</Pill></div>
           </motion.div>
+          <motion.div variants={item} className="glass rounded-2xl p-5">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-xl bg-primary/20"><Award className="w-5 h-5 text-accent" /></div>
+              <h4 className="font-semibold">Relevant Coursework</h4>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {["Learning Python for Data Science (Infosys Springboard)", "Power BI Training (Infosys Springboard)", "Introduction to MS Excel (Simplilearn)"].map((c) => <Pill key={c}>{c}</Pill>)}
+            </div>
+          </motion.div>
         </div>
       </div>
     </motion.div>
@@ -153,8 +162,8 @@ function WhoContent() {
 
 const SKILL_GROUPS = [
   { title: "Programming", icon: Code2, color: "from-cyan-400 to-blue-500", skills: ["Python", "SQL"] },
-  { title: "Data Analytics", icon: BarChart3, color: "from-purple-400 to-pink-500", skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Microsoft Excel"] },
-  { title: "Core Concepts", icon: Brain, color: "from-amber-400 to-orange-500", skills: ["Data Cleaning", "Data Preprocessing", "EDA", "Data Visualization", "Machine Learning Basics"] },
+  { title: "Data Analytics", icon: BarChart3, color: "from-purple-400 to-pink-500", skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Microsoft Excel", "Power BI", "DAX", "Power Query"] },
+  { title: "Machine Learning & AI", icon: Brain, color: "from-amber-400 to-orange-500", skills: ["Machine Learning", "Data Analysis", "Data Cleaning", "Data Preprocessing", "EDA", "Dashboard Reporting", "Data Visualization", "NLP", "TF-IDF"] },
   { title: "AI & Development", icon: Sparkles, color: "from-emerald-400 to-cyan-500", skills: ["Generative AI", "API Integration", "Chatbot Development"] },
 ];
 
@@ -181,8 +190,24 @@ function SkillsContent() {
 }
 
 const EXPERIENCE = [
-  { role: "GenAI Intern", company: "Evolve Robot Lab", period: "Dec 2025 – Jan 2026", points: ["Generative AI Applications", "Chatbot Development", "API Integration", "Machine Learning Fundamentals"] },
-  { role: "Data Science Intern", company: "Elysium Group", period: "Jul 2025 – Aug 2025", points: ["Data Analysis", "Data Visualization", "Data Cleaning", "Exploratory Data Analysis"] },
+  {
+    role: "GenAI Intern", company: "Evolve Robot Lab", period: "Dec 2025 – Jan 2026",
+    details: [
+      "Assisted in developing and testing Generative AI applications based on business requirements.",
+      "Collaborated in integrating AI APIs and third-party tools to improve application functionality.",
+      "Participated in testing, documentation, and solution validation to ensure project requirements were met.",
+    ],
+    points: ["Generative AI Applications", "Chatbot Development", "API Integration", "Testing & Documentation"],
+  },
+  {
+    role: "Data Science Intern", company: "Elysium Groups", period: "Jun 2025 – Jul 2025",
+    details: [
+      "Collected, cleaned, and analyzed real-world datasets to identify business insights.",
+      "Performed data preprocessing, exploratory data analysis (EDA), and generated analytical reports.",
+      "Created visualizations to support data-driven decision-making and business recommendations.",
+    ],
+    points: ["Data Analysis", "Data Visualization", "Data Cleaning", "Exploratory Data Analysis"],
+  },
 ];
 
 function ExperienceContent() {
@@ -202,6 +227,9 @@ function ExperienceContent() {
               </div>
               <span className="px-3 py-1 rounded-full glass text-xs text-muted-foreground">{e.period}</span>
             </div>
+            <ul className="list-disc pl-5 space-y-1.5 text-muted-foreground mb-4 leading-relaxed">
+              {e.details.map((d) => <li key={d}>{d}</li>)}
+            </ul>
             <div className="flex flex-wrap gap-2">{e.points.map((p) => <Pill key={p}>{p}</Pill>)}</div>
           </motion.div>
         ))}
@@ -210,9 +238,28 @@ function ExperienceContent() {
   );
 }
 
+const MORE_PROJECTS = [
+  {
+    title: "Sales Performance Dashboard",
+    subtitle: "Interactive Business Intelligence Dashboard",
+    Icon: LineChart,
+    description: "An interactive Power BI dashboard to analyze Sales, Profit, Orders, and Regional Performance, with KPIs and visualizations that identify business trends and support data-driven decision-making.",
+    features: ["Sales & Profit Analysis", "Regional Performance", "KPI Tracking", "Trend Visualization"],
+    stack: ["Power BI", "Excel", "DAX", "Power Query"],
+  },
+  {
+    title: "SMS Intent Classifier",
+    subtitle: "NLP-based Machine Learning Model",
+    Icon: Database,
+    description: "An NLP-based machine learning model that classifies SMS messages into predefined user intents, using text cleaning and TF-IDF vectorization for feature extraction.",
+    features: ["Text Cleaning", "TF-IDF Vectorization", "Intent Classification", "Streamlit Interface"],
+    stack: ["Python", "NLP", "TF-IDF", "Logistic Regression", "Streamlit"],
+  },
+];
+
 function ProjectsContent() {
   return (
-    <motion.div variants={stagger} initial="hidden" animate="show">
+    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-6">
       <DetailHeader kicker="WORK" title="Projects" />
       <motion.div variants={item} className="glass-strong rounded-3xl overflow-hidden">
         <div className="relative h-44 bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
@@ -234,7 +281,7 @@ function ProjectsContent() {
           <div className="mb-6">
             <h4 className="text-xs tracking-[0.2em] text-muted-foreground mb-2">TECH STACK</h4>
             <div className="flex flex-wrap gap-2">
-              {["Python", "AI", "Data Analytics", "Firebase", "React"].map((f) => <Pill key={f}>{f}</Pill>)}
+              {["Python", "AI", "Data Analytics", "Firebase Auth", "Firestore", "Cloud Storage", "React"].map((f) => <Pill key={f}>{f}</Pill>)}
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -247,6 +294,30 @@ function ProjectsContent() {
           </div>
         </div>
       </motion.div>
+      {MORE_PROJECTS.map((p) => (
+        <motion.div key={p.title} variants={item} className="glass-strong rounded-3xl overflow-hidden">
+          <div className="relative h-44 bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+            <p.Icon className="w-16 h-16 text-accent/70 relative" />
+          </div>
+          <div className="p-6">
+            <h3 className="text-2xl font-bold">{p.title}</h3>
+            <p className="text-accent text-sm mb-4">{p.subtitle}</p>
+            <p className="text-muted-foreground mb-5 leading-relaxed">{p.description}</p>
+            <div className="mb-5">
+              <h4 className="text-xs tracking-[0.2em] text-muted-foreground mb-2">FEATURES</h4>
+              <div className="flex flex-wrap gap-2">{p.features.map((f) => <Pill key={f}>{f}</Pill>)}</div>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-xs tracking-[0.2em] text-muted-foreground mb-2">TECH STACK</h4>
+              <div className="flex flex-wrap gap-2">{p.stack.map((f) => <Pill key={f}>{f}</Pill>)}</div>
+            </div>
+            <Button asChild className="bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 hover:opacity-90">
+              <a href={GITHUB} target="_blank" rel="noreferrer"><Github className="w-4 h-4 mr-2" />View Code</a>
+            </Button>
+          </div>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }
