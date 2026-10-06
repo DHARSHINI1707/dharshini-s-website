@@ -72,6 +72,27 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   return <span ref={ref}>{val}{suffix}</span>;
 }
 
+/* ============================================================ SPARKLINE */
+function Sparkline({ seed, className = "" }: { seed: number; className?: string }) {
+  const values = Array.from({ length: 12 }, (_, i) => 0.35 + 0.25 * Math.sin(seed * 1.3 + i * 0.8) + 0.15 * Math.cos(seed + i * 1.7) + i * 0.02);
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const pts = values.map((v, i) => `${(i / (values.length - 1)) * 100},${36 - ((v - min) / (max - min || 1)) * 30 - 3}`).join(" ");
+  const gid = `spark-${seed}`;
+  return (
+    <svg viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true" className={className}>
+      <defs>
+        <linearGradient id={gid} x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <polygon points={`0,36 ${pts} 100,36`} fill={`url(#${gid})`} />
+      <polyline points={pts} fill="none" stroke="var(--color-accent)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
 /* ============================================================ CARD DATA */
 const CARDS = [
   { id: "who", num: "01", cat: "Profile", title: "WHO AM I", preview: "Computer Science Engineering student passionate about turning data into insight.", Icon: User },
@@ -105,6 +126,9 @@ function DetailHeader({ kicker, title }: { kicker: string; title: string }) {
         <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />{kicker}
       </div>
       <h2 className="text-4xl md:text-5xl font-bold"><span className="text-gradient">{title}</span></h2>
+      <p className="mt-2 font-mono text-xs text-muted-foreground">
+        <span className="text-chart">{">"}</span> SELECT * FROM <span className="text-accent">{kicker.toLowerCase()}</span>;
+      </p>
     </motion.div>
   );
 }
@@ -497,6 +521,15 @@ function Landing({ onExplore }: { onExplore: () => void }) {
             <a href={GITHUB} target="_blank" rel="noreferrer"><Github className="w-4 h-4 mr-2" />GitHub Profile</a>
           </Button>
         </div>
+        <div className="mt-8 grid grid-cols-3 gap-3">
+          {STATS.slice(0, 3).map((s, i) => (
+            <div key={s.label} className="glass rounded-2xl p-3 relative overflow-hidden">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground truncate">{s.label}</div>
+              <div className="text-2xl font-bold text-foreground mt-1"><Counter to={s.to} suffix={s.suffix} /></div>
+              <Sparkline seed={i + 3} className="w-full h-6 mt-1" />
+            </div>
+          ))}
+        </div>
       </motion.div>
 
       {/* RIGHT — VIDEO */}
@@ -507,6 +540,10 @@ function Landing({ onExplore }: { onExplore: () => void }) {
             <source src={INTRO_VIDEO} type="video/mp4" />
           </video>
           <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-accent/20" />
+          <div className="absolute top-4 left-4 glass-strong rounded-full px-3 py-1.5 flex items-center gap-2 font-mono text-[11px] text-foreground/90">
+            <BarChart3 className="w-3.5 h-3.5 text-chart" />insights.dashboard
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+          </div>
           <button onClick={toggleAudio} aria-label={muted ? "Unmute intro" : "Mute intro"}
             className="absolute bottom-4 right-4 glass-strong rounded-full p-3 hover:bg-accent/20 transition-colors">
             {muted ? <VolumeX className="w-5 h-5 text-accent" /> : <Volume2 className="w-5 h-5 text-accent" />}
@@ -553,6 +590,7 @@ function CardDeck({ onSelect, onBack }: { onSelect: (id: string) => void; onBack
                   <h3 className="text-2xl font-bold group-hover:text-gradient transition-colors">{c.title}</h3>
                   <p className="text-sm text-muted-foreground mt-1">{c.preview}</p>
                 </div>
+                <Sparkline seed={i + 1} className="hidden sm:block w-24 h-10 opacity-70 group-hover:opacity-100 transition-opacity" />
               </div>
             </motion.button>
           ))}
