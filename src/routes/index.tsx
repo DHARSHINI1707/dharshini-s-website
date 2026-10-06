@@ -112,7 +112,7 @@ function DetailHeader({ kicker, title }: { kicker: string; title: string }) {
 function WhoContent() {
   return (
     <motion.div variants={stagger} initial="hidden" animate="show">
-      <DetailHeader kicker="PROFILE" title="Who Am I" />
+      <DetailHeader kicker="PROFILE" title="Who I Am" />
       <div className="grid lg:grid-cols-3 gap-6">
         <motion.div variants={item} className="glass-strong rounded-3xl p-6 flex flex-col items-center text-center">
           <div className="relative mb-4">
