@@ -33,8 +33,18 @@ export function ParticleBackground() {
 
       ctx.strokeStyle = "rgba(148,163,184,0.06)";
       ctx.lineWidth = 1;
-      for (let x = 0; x < w; x += GRID) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
-      for (let y = 0; y < h; y += GRID) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+      for (let x = 0; x < w; x += GRID) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y < h; y += GRID) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
 
       const barW = w / bars.length;
       bars.forEach((b, i) => {
@@ -50,8 +60,13 @@ export function ParticleBackground() {
       series.forEach((s) => {
         ctx.beginPath();
         for (let x = 0; x <= w; x += 8) {
-          const y = h * (s.base + s.amp * Math.sin(x * s.freq + t * s.speed * 0.02 + s.phase) + s.amp * 0.4 * Math.sin(x * s.freq * 2.3 + s.phase));
-          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          const y =
+            h *
+            (s.base +
+              s.amp * Math.sin(x * s.freq + t * s.speed * 0.02 + s.phase) +
+              s.amp * 0.4 * Math.sin(x * s.freq * 2.3 + s.phase));
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         }
         ctx.strokeStyle = `rgba(${s.color},0.35)`;
         ctx.lineWidth = 1.5;
@@ -59,7 +74,8 @@ export function ParticleBackground() {
       });
 
       points.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy;
+        p.x += p.vx;
+        p.y += p.vy;
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
         ctx.beginPath();
@@ -71,7 +87,8 @@ export function ParticleBackground() {
           const d = Math.hypot(p.x - q.x, p.y - q.y);
           if (d < 110) {
             ctx.beginPath();
-            ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = `rgba(148,163,184,${0.12 * (1 - d / 110)})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
@@ -83,9 +100,22 @@ export function ParticleBackground() {
       if (!reduceMotion) raf = requestAnimationFrame(draw);
     };
     draw();
-    const onResize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; if (reduceMotion) draw(); };
+    const onResize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      if (reduceMotion) draw();
+    };
     window.addEventListener("resize", onResize);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); };
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
-  return <canvas ref={ref} aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none opacity-70" />;
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden="true"
+      className="fixed inset-0 -z-10 pointer-events-none opacity-70"
+    />
+  );
 }
